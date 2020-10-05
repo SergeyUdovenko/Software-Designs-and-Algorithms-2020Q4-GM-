@@ -10,12 +10,12 @@ export class Triangle extends Shape {
   private d2: number = 0;
   private d3: number = 0;
 
-  constructor(x1: Point, x2: Point, x3: Point) {
-    super([x1, x2, x3]);
+  constructor(point1: Point, point2: Point, point3: Point) {
+    super([point1, point2, point3]);
 
-    this.v1 = x1;
-    this.v2 = x2;
-		this.v3 = x3;
+    this.v1 = point1;
+    this.v2 = point2;
+		this.v3 = point3;
 
     this.d1 = this.v3.distance(this.v1);
     this.d2 = this.v1.distance(this.v2);
