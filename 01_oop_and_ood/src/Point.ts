@@ -20,8 +20,8 @@ export class Point {
     if (a instanceof Point) {
       return new Point(this.x, this.y).distance(a.x, a.y);
     }
-		const x1 = a | 0;
-		const y1 = b | 0;
-    return Math.sqrt(Math.pow(x1 - this.x, 2) + Math.pow(y1 - this.y, 2));
+		const x1 = a || 0;
+		const y1 = b || 0;
+    return Number(Math.sqrt(Math.pow(x1 - this.x, 2) + Math.pow(y1 - this.y, 2)).toFixed(3));
   }
 }

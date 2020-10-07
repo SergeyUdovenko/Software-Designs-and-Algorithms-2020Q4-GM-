@@ -19,7 +19,9 @@ export class Triangle extends Shape {
 
     this.d1 = this.v3.distance(this.v1);
     this.d2 = this.v1.distance(this.v2);
-		this.d3 = this.v2.distance(this.v3);
+    this.d3 = this.v2.distance(this.v3);
+    
+    console.log(this.d1, this.d2, this.d3)
   }
 
   toString(): string {
