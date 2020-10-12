@@ -29,7 +29,7 @@ describe('Weapon', () => {
             const expected = 'You use the hammer, dealing 30.47 points of damage.\nThe hammer breaks.';
             do {
                 sut.use();
-            } while (sut.getDurability() > sut.MODIFIER_CHANGE_RATE);
+            } while (sut.getDurability() > Weapon.MODIFIER_CHANGE_RATE);
             expect(sut.use()).toBe(expected);
         });
 

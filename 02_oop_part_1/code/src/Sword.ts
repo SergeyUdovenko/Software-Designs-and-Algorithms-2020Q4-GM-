@@ -1,15 +1,14 @@
 import { Weapon } from './Weapon';
 
 export class Sword extends Weapon {
-    private readonly damage: number;
 
     constructor(defaultName = 'sword', baseDamage: number, baseDurability: number, value: number, weight: number) {
-        super(defaultName, value, baseDamage, baseDurability, weight);
-
-        this.damage = baseDamage;
+        super(defaultName, baseDamage, baseDurability, value, weight);
     }
 
     polish(): void {
-        this.damageModifier += this.MODIFIER_CHANGE_RATE + (this.damage / 100) * 0.25;
+        if(this.getBaseDamage()*1.25 > this.getDamage() ) {
+            this.setDamageModifier(this.getDamageModifier() + Weapon.MODIFIER_CHANGE_RATE);
+        }
     }
 }

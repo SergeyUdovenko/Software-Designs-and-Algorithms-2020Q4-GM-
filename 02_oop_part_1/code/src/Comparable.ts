@@ -1,10 +1,11 @@
-import {Item} from "./Item";
+import { Item } from './Item';
 
 export interface Comparable {
-    name: string;
-    value: number;
-    weight: number;
+    getId: number;
+    getName: string;
+    getValue: number;
+    getWeight: number;
     compareTo(other: Item): number;
     toString(): string;
-    use(): string;
+    use(): void;
 }

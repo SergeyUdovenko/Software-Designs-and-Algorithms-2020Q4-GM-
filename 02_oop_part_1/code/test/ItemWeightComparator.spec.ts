@@ -2,7 +2,9 @@ import { ItemWeightComparator } from '../src/ItemWeightComparator';
 import { Item } from '../src/Item';
 
 class TestItem extends Item {
-    use() { return 'test'}
+    use() {
+        return 'test';
+    }
 }
 
 describe('ItemWeightComparator', () => {

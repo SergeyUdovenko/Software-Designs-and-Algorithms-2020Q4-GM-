@@ -2,14 +2,14 @@ import { Weapon } from './Weapon';
 
 export class Bow extends Weapon {
     constructor(defaultName = 'bow', baseDamage: number, baseDurability: number, value: number, weight: number) {
-        super(defaultName, value, baseDamage, baseDurability, weight);
+        super(defaultName, baseDamage, baseDurability, value, weight);
     }
 
     polish(): void {
-        if (this.durabilityModifier <= 1) {
-            this.durabilityModifier = 1;
+        if (this.getDurability() < 1) {
+            this.setDurabilityModifier(this.getDurabilityModifier() + Weapon.MODIFIER_CHANGE_RATE);
         } else {
-            this.durabilityModifier += this.MODIFIER_CHANGE_RATE;
+            this.setDurability(1);
         }
     }
 }

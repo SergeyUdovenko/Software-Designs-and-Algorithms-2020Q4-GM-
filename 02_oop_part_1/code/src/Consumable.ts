@@ -1,20 +1,26 @@
-import {Item} from './Item';
+import { Item } from './Item';
 
 export abstract class Consumable extends Item {
     private consumed: boolean = false;
     private spoiled: boolean;
-    private defaultMessage: string = `You eat the ${this.name}.`;
-    private sickMessage: string = 'You fell sick.';
+    public defaultMessage: string;
+    public sickMessage: string;
 
     constructor(name: string, value: number, weight: number, spoiled: boolean) {
         super(name, value, weight);
+        this.spoiled = spoiled;
+        this.defaultMessage = `You eat the ${this.getName}.`;
+        this.sickMessage = 'You feel sick.';
     }
 
     use(): string {
-        if (this.consumed && this.spoiled) {
+        if (!this.consumed && !this.spoiled) {
             return this.eat();
-        } else if (!this.spoiled) {
-            return  this.defaultMessage + this.sickMessage;
+        } else if (this.spoiled) {
+            return `${this.eat()}
+${this.sickMessage}`;
+        } else if (this.consumed) {
+            return `There is nothing left of the ${this.getName} to consume.`;
         }
     }
 
@@ -22,11 +28,25 @@ export abstract class Consumable extends Item {
         return this.defaultMessage;
     }
 
-    isConsumed(): boolean { return false }
+    public get isConsumed(): boolean {
+        return this.consumed;
+    }
 
-    setConsumed(consumed: boolean) { this.consumed = consumed }
+    public setConsumed(consumed: boolean) {
+        if (this.consumed) {
+            return `There is nothing left of the ${this.getName} to consume.`;
+        } else {
+            this.consumed = consumed;
+        }
+    }
 
-    isSpoiled(): boolean { return false }
+    public get isSpoiled(): boolean {
+        return this.spoiled;
+    }
+
+    public set setSpoiled(spoiled) {
+        this.spoiled = spoiled;
+    }
 
     toString(): string {
         return '';

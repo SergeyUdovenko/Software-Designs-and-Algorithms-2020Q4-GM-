@@ -1,55 +1,78 @@
 import { Item } from './Item';
 
 export abstract class Weapon extends Item {
-    readonly MODIFIER_CHANGE_RATE: number = 0.05;
+    static MODIFIER_CHANGE_RATE: number = 0.05;
     private baseDamage: number;
     private baseDurability: number;
-    private effectiveDamage: number;
-    private effectiveDurability: number;
-    public damageModifier: number = this.MODIFIER_CHANGE_RATE;
-    public durabilityModifier: number = this.MODIFIER_CHANGE_RATE;
+    private durabilityModifier: number = Weapon.MODIFIER_CHANGE_RATE;
+    public effectiveDamage: number;
+    public effectiveDurability: number;
+    private damageModifier: number = Weapon.MODIFIER_CHANGE_RATE;
 
-    constructor(name: string, value: number, baseDamage: number, baseDurability: number, weight: number) {
+    constructor(name: string, baseDamage: number, baseDurability: number, value: number, weight: number) {
         super(name, value, weight);
+
         this.baseDamage = baseDamage;
         this.baseDurability = baseDurability;
+        this.effectiveDamage = this.baseDamage + this.damageModifier;
+        this.effectiveDurability = this.baseDurability + this.durabilityModifier;
     }
 
     abstract polish(): void;
 
     use(): string {
-        this.effectiveDamage = this.floor(this.baseDamage + this.damageModifier);
-        this.effectiveDurability = this.floor(this.baseDurability + this.durabilityModifier);
-        this.effectiveDurability -= this.MODIFIER_CHANGE_RATE;
+        this.effectiveDurability = this.baseDurability + this.durabilityModifier;
+        this.baseDurability -= Weapon.MODIFIER_CHANGE_RATE;
+        console.log(this.effectiveDurability);
+        const baseMessage = `You use the ${this.getName}, dealing ${this.floor(this.effectiveDamage)} points of damage.`;
 
-        const baseMessage = `You use the ${this.name}, dealing ${this.floor(this.effectiveDamage)} points of damage.`;
-
-        if (this.effectiveDurability === 0) {
-            return baseMessage + `The ${this.name} breaks`;
-        } else if (this.effectiveDurability < 0) {
-            throw Error(`You can't use the ${this.name}, it is broken`);
+        if (this.effectiveDurability < Weapon.MODIFIER_CHANGE_RATE && this.effectiveDurability > 0) {
+            return `${baseMessage}
+The ${this.getName} breaks.`;
+        } else if (this.effectiveDurability <= 0) {
+            return `You can't use the ${this.getName}, it is broken.`;
         }
         return baseMessage;
     }
 
     public getDamage(): number {
-        return this.effectiveDamage;
+        return this.baseDamage + this.damageModifier;
     }
 
     public getDurability(): number {
-        return this.effectiveDurability;
+        return this.baseDurability + this.durabilityModifier;
     }
-    public setDamageModifier(modifier) {
+
+    public getDamageModifier(): number {
+        return this.damageModifier;
+    }
+
+    public getBaseDamage() {
+        return this.baseDamage;
+    }
+
+    public setDamage(damage) {
+        this.baseDamage = damage;
+    }
+
+    public setDurability(durability) {
+        this.baseDurability = durability;
+    }
+
+    public setDamageModifier (modifier) {
         this.damageModifier = modifier;
     }
 
-    public setDurabilityModifier(durability: number): void {
+    public getDurabilityModifier(): number {
+        return this.durabilityModifier;
+    }
+
+    public setDurabilityModifier(durability: number) {
         this.durabilityModifier = durability;
     }
 
     toString(): string {
-        const { value, weight, baseDurability, baseDamage } = this;
-        return `${this.name} - Value : ${value}, Weight : ${weight} , Damage : ${baseDamage} , Durability : ${baseDurability}%`;
+        return `${this.getName} - Value: ${this.getValue}, Weight: ${this.floor(this.getWeight)}, Damage: ${this.floor(this.effectiveDamage)}, Durability: ${this.effectiveDurability *100}%`;
     }
 
     private floor(num: number): number {

@@ -4,7 +4,7 @@ import { Item } from './Item';
 export class Inventory implements ItemComparator {
     private items: Array<Item> = [];
 
-    addItem(item: Item): void {
+    public addItem(item: Item): void {
         this.items.push(item);
     }
 
@@ -15,17 +15,19 @@ export class Inventory implements ItemComparator {
             return -1;
         }
     }
-    sort(comparator?: ItemComparator): void {
+    public sort(comparator?: ItemComparator): void {
         this.items.sort((a, b) => {
             if (comparator) {
                 return comparator.compare(a, b);
             } else {
-                return a.value - b.value;
+                const valueA = a.getValue;
+                const valueB = b.getValue;
+                return valueA - valueB;
             }
         });
     }
 
-    toString(): string {
+    public toString(): string {
         return this.items.join(', ');
     }
 }

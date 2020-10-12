@@ -1,4 +1,4 @@
-import {Consumable} from './Consumable';
+import { Consumable } from './Consumable';
 
 export class Pizza extends Consumable {
     private numberOfSlices: number;
@@ -6,7 +6,9 @@ export class Pizza extends Consumable {
 
     constructor(numberOfSlices: number, spoiled: boolean) {
         const defaultName = 'pizza';
-        super(defaultName, 20, 30, spoiled)
+        super(defaultName, 20, 30, spoiled);
+        this.numberOfSlices = numberOfSlices;
+        this.slicesEaten = 0;
     }
 
     eat(): string {
@@ -15,9 +17,8 @@ export class Pizza extends Consumable {
             if (this.slicesEaten >= this.numberOfSlices) {
                 this.setConsumed(true);
             }
-            return 'You eat a slice of pizza.';
+            return 'You eat a slice of the pizza.';
         } else {
-
             return '';
         }
     }
