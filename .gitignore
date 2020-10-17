@@ -3,3 +3,4 @@
 02_oop_part_1/code/node_modules/arg/LICENSE.md
 02_oop_part_1/code/node_modules/decamelize/package.json
 02_oop_part_1/code/node_modules/
+**/node_modules/**
