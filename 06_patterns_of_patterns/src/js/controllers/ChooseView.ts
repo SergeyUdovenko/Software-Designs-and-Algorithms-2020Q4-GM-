@@ -2,13 +2,13 @@ import { NumberCalculate } from "./NumberCalculate";
 import { RangeCalculate } from "./RangeCalculate";
 
 export class ChooseView {
-  alert: HTMLElement;
+  radio-panel: HTMLElement;
   container: HTMLElement;
   constructor() {
-    this.alert = document.getElementById("alert");
+    this.radio-panel = document.getElementById("radio-panel");
     this.container = document.getElementById("container");
 
-    this.alert.addEventListener("click", (event: any) => {
+    this.radio-panel.addEventListener("click", (event: any) => {
       const target = <HTMLElement>event.target;
       if (!this.handler[target.id]) return;
       this.container.innerHTML = "";
