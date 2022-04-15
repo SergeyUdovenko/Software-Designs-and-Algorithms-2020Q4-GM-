@@ -1,3 +1,6 @@
 01_oop_and_ood/yarn.lock
 01_oop_and_ood/node_modules
-node_modules
+02_oop_part_1/code/node_modules/arg/LICENSE.md
+02_oop_part_1/code/node_modules/decamelize/package.json
+02_oop_part_1/code/node_modules/
+**/node_modules/**
